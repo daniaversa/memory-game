@@ -8,13 +8,12 @@ html {
 *::after {
     box-sizing: inherit;
     padding: 0;
+    margin: 0;
 }
 
 html,
 body {
     width: 100%;
-    padding: 0;
-    margin: 0;
 }
 
 .container {
@@ -47,8 +46,8 @@ h1 {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    height: 9vh;
     margin-top: 3px;
+    max-height: 50px;
 }
 
 .stars {
@@ -61,6 +60,7 @@ h1 {
 .panel p {
     width: 33%;
     text-align: center;
+    margin: 0;
 }
 
 .stars li {
@@ -84,7 +84,7 @@ h1 {
 .deck {
     width: 84vw;
     max-width: 600px;
-    height: 72vh;
+    height: 75vh;
     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
     padding: 4%;
     border-radius: 10px;
@@ -93,7 +93,7 @@ h1 {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
-    margin: 0 0 0.5em;
+    margin: 0.5em 0 1em;
 }
 
 .deck .card {
