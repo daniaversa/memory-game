@@ -106,8 +106,30 @@ h1 {
     height: 22%;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 0;
+    font-size: 2em;
     color: white;
+    transform: scale(1);
+}
+
+.deck .card:active {
+    transform: scale(.96);
+    transition: transform .2s;
+}
+
+.deck .card.open {
+    transform: rotateY(0);
+    background: #02b3e4;
+    cursor: default;
+}
+
+.deck .card.show {
+    font-size: 2em;
+}
+
+.deck .card.match {
+    cursor: default;
+    background: #02ccba;
+    font-size: 2em;
 }
 
 /* Footer Styles */
