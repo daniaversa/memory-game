@@ -1,5 +1,8 @@
 
-// Variables
+/**************************
+ *       Variables        *
+***************************/
+
 const cardList = [
     "fa-github",
     "fa-github",
@@ -20,17 +23,29 @@ const cardList = [
   ];
 let slots = document.querySelectorAll('.card-icon');
 let cards = document.querySelectorAll('.card');
+let deck = document.querySelector('.deck');
 let chosenCards = [];
-let rating = 3;
+let counter = document.querySelector('.moves');
+let moves = 0;
+let stars = document.querySelector('.stars').childNodes;
 let pairsRemain = 8;
 let timeStart = false;
 let timer;
+let restart = document.querySelector('.restart')
 
-/* Display Cards on page
+/* Set-up: Display cards on page
  *    - Shuffle Cards
  *    - Loop through cards
  *    - Add HTML to document
  */
+
+ /**************************
+  *         Set Up         *
+  **************************
+  * - Shuffle cards        *
+  * - Loop through cards   *
+  * - Add HTML to document *
+ ***************************/
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -51,28 +66,114 @@ function shuffle(array) {
 function dealCards() {
     let shuffledList = shuffle(cardList);
     for (var i = 0; i < cardList.length; i++) {
-        slots[i].classList.add(cardList[i]);
+        // Remove old cards when restarting
+        slots[i].className = '';
+        // Add cards to the table
+        slots[i].classList.add('fa', cardList[i]);
     }
 }
 dealCards();
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
+/**************************
+ *     Game Mechanics     *
+***************************/
 
-function flipCard() {
-    this.classList.add('open', 'show');
-    chosenCards.push(...this.firstChild.classList[2]);
-    console.log(chosenCards);
+ // Call FlipCard function when a card is clicked
+ for(card of cards) {
+     card.addEventListener('click', flipCard);
+ }
+
+// Flips, reveals a card and calls addChosenCard function
+function flipCard(e) {
+    let chosen = e.target;
+    if (!chosen.classList.contains("open", "show", "match")) {
+        chosen.classList.add('open', 'show');
+        addChosenCard(chosen);
+    }
 }
 
-for(card of cards) {
-    card.addEventListener('click', flipCard);
-};
+// Add clicked cards to check array and calls checkMatch function if 2 cards are clicked.
+function addChosenCard(card){
+    chosenCards.push(card);
+    if (chosenCards.length === 2) {
+        for(card of cards) {
+            card.removeEventListener('click', flipCard);
+        }
+        checkMatch();
+        moveCount();
+    }
+}
+
+// Checks cards for matches
+function checkMatch() {
+    // Matching cards case
+    if (chosenCards[0].innerHTML === chosenCards[1].innerHTML) {
+        match();
+    } else { // No match case
+        setTimeout(noMatch, 800);
+    }
+}
+
+// Lock card open and checks for end game condition
+function match() {
+    for(card of chosenCards) {
+        card.classList.add("match");
+    };
+    pairsRemain--;
+    checkWin();
+    empty();
+}
+
+// Flips down in case of no match
+function noMatch() {
+    for (card of chosenCards) {
+        card.classList.remove("open", "show");
+    };
+    empty();
+}
+
+// Empty the array after checks
+function empty() {
+    chosenCards = [];
+    for(card of cards) {
+        card.addEventListener('click', flipCard);
+    }
+}
+
+// Checks for Win condition
+function checkWin() {
+    if (pairsRemain === 0) {
+      alert("YOU WIN!!!");
+    };
+}
+
+// Increment move counter
+function moveCount() {
+    moves++;
+    counter.innerHTML = moves;
+    checkRating();
+}
+
+// Stars rating
+function checkRating() {
+  if (moves === 12) {
+      // Remove third star
+      stars[5].classList.add('lost')
+  } else if (moves === 20) {
+      // Remove second star
+      stars[3].classList.add('lost')
+  }
+}
+
+// Restart game
+restart.addEventListener('click', restartGame);
+
+function restartGame() {
+    // Restart moves counter
+    moves = -1;
+    moveCount();
+    // Restart stars rating
+    stars[3].classList.remove('lost');
+    stars[5].classList.remove('lost');
+    dealCards();
+}
