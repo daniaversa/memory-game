@@ -106,7 +106,7 @@ h1 {
     height: 22%;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 2em;
+    font-size: 0;
     color: white;
     transform: scale(1);
 }
