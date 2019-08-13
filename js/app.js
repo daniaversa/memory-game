@@ -68,6 +68,7 @@ function dealCards() {
     for (var i = 0; i < cardList.length; i++) {
         // Remove old cards when restarting
         slots[i].className = '';
+        cards[i].classList.remove("open", "show", "match");
         // Add cards to the table
         slots[i].classList.add('fa', cardList[i]);
     }
