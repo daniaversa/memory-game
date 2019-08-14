@@ -84,13 +84,18 @@ dealCards();
      card.addEventListener('click', flipCard);
  }
 
-// Flips, reveals a card and calls addChosenCard function
+// Flips a card and calls showCard and addChosenCard function
 function flipCard(e) {
     let chosen = e.target;
     if (!chosen.classList.contains("open", "show", "match")) {
-        chosen.classList.add('open', 'show');
+        chosen.classList.add('open');
         addChosenCard(chosen);
+        setTimeout(showCard, 300, chosen);
     }
+}
+// Reveals the card
+function showCard(card) {
+    card.classList.add('show')
 }
 
 // Add clicked cards to check array and calls checkMatch function if 2 cards are clicked.
