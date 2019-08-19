@@ -13,6 +13,8 @@ To try the game please [click here](daniaversa.github.io/memory-game).
 - The less moves and time you take, the better!
 - Good luck!
 
+_(Optional)_ You can use also the keyboard to play, using the keys `1` - `4`, `Q` - `R`, `A` - `F`, `Z` - `V`  to flip the respective cards.
+
 ### Dani Aversa
 
 Front End Developer
