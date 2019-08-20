@@ -227,7 +227,6 @@ function timerOn() {
 // Turn timer off
 function timerOff() {
 		clearInterval(count);
-		count = 0;
 		timer = false;
 }
 
