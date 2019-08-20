@@ -1,3 +1,4 @@
+/* General Rules and Resets */
 html {
 		box-sizing: border-box;
 		font-family: "Open Sans", sans-serif;
@@ -13,6 +14,7 @@ html {
 
 html,
 body {
+		height: 100%;
 		width: 100%;
 }
 
@@ -21,7 +23,7 @@ body {
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
-		background-color: #b2dbbf;
+		background-color: rgba(2, 117, 216, 0.3);
 }
 
 ul {
@@ -39,6 +41,10 @@ h1 {
 		font-family: "Londrina Solid", "Open Sans", sans-serif;
 		font-weight: 300;
 		margin: 0.3em 0 0;
+}
+
+a {
+		color: #0275d8;
 }
 
 /* Panel Styles */
@@ -62,6 +68,7 @@ h1 {
 		padding: 0 0 0.3em 0;
 }
 
+/* Star Rating Styles */
 .stars,
 .modal-stars {
 		color: gold;
@@ -71,7 +78,7 @@ h1 {
 }
 
 .lost {
-		color: #fefefe;
+		color: #fefefe; /* Lost stars */
 }
 
 .panel p {
@@ -89,6 +96,7 @@ h1 {
 		margin-right: 2px;
 }
 
+/* Buttons */
 .restart,
 .keys {
 		display: flex;
@@ -107,23 +115,29 @@ h1 {
 		border-radius: 10px;
 		cursor: pointer;
 		font-size: 2em;
+		transition: 0.3s;
 }
 
 .restart i {
-		background-color: #ff1654;
+		background-color: #f0ad4e;
 }
 
 .keys i {
-		background-color: #247ba0;
+		background-color: #5bc0de;
 }
 
+.restart i:hover,
+.keys i:hover {
+		background-color: #292b2c;
+		color: #f7f7f7;
+}
 
 /* Deck Styles */
 .deck {
 		width: 84vw;
 		max-width: 500px;
 		height: 75vh;
-		background: linear-gradient(160deg, #247ba0 0%, #70c1b3 100%);
+		background: linear-gradient(160deg, #0275d8 0%, #292b2c 100%);
 		padding: 4%;
 		border-radius: 10px;
 		box-shadow: 6px 5px 10px 0 rgba(46, 61, 73, 1);
@@ -134,12 +148,13 @@ h1 {
 		margin: 0.5em 0 1em;
 }
 
+/* Default card style */
 .deck .card {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		width: 23%;
-		background: #273746;
+		background: #f7f7f7;
 		min-height: 45px;
 		height: 22%;
 		border-radius: 8px;
@@ -148,33 +163,83 @@ h1 {
 		color: #fff;
 		transform: rotateY(180deg);
 		perspective: 1000px;
+		transition: 0.3s;
 }
 
+/* Hover animation only on desktops, doesn't work well with touchscreen */
+@media screen and min-width(720px) {
+		.deck .card:hover {
+				background-color: #292b2c;
+		}
+}
+
+/* Faced up card styles */
 .deck .card.open {
 		transform: rotateY(0);
 		transform-style: preserve-3d;
-		transition: transform .4s;
+		transition: transform .3s;
 		cursor: default;
 }
 
+/* Wait for the flip and reveal card */
 .deck .card.show {
-		background: #02b3e4;
+		background: #5bc0de;
 		font-size: 2em;
 }
 
+/* Found pair card styles */
 .deck .card.match {
 		cursor: default;
-		background: #02ccba;
+		background: #5cb85c;
 		font-size: 2em;
 }
 
-.deck .card p {
-		font-size: 2em;
+/* Correct match animation */
+.deck .card.right {
+		animation: right 0.5s;
+}
+
+@keyframes right {
+		0% 		{ transform: scale(1); }
+		25% 	{ transform: scale(1.1); }
+		50% 	{ transform: scale(1.2); }
+		75% 	{ transform: scale(1.1); }
+		100%	{ transform: scale(1); }
+}
+
+/* No match animation */
+.deck .card.wrong	 {
+		animation: wrong 0.3s;
+		background-color: #d9534f;
+}
+
+@keyframes wrong {
+		0% {
+				-webkit-transform: skewX(0);
+				transform: skewX(0);
+		}
+		25% {
+				-webkit-transform: skewX(30deg);
+				transform: skewX(30deg);
+		}
+		50% {
+				-webkit-transform: skewX(0deg);
+				transform: skewX(0);
+		}
+		75% {
+				-webkit-transform: skewX(-30deg);
+				transform: skewX(-30deg);
+		}
+		100% {
+				-webkit-transform: skewX(0);
+				transform: skewX(0);
+		}
 }
 
 /* Footer Styles */
 footer p {
 		font-size: 0.9em;
+		margin-bottom: 1em;
 }
 
 /* Modal Styles */
@@ -224,7 +289,7 @@ footer p {
 .modal-close:hover,
 .modal-close:focus,
 .modal-close:active {
-		color: #70c1b3;
+		color: #0275d8;
 		text-decoration: none;
 		cursor: pointer;
 }

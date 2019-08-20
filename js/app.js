@@ -142,7 +142,13 @@ function checkMatch() {
 		if (chosenCards[0].innerHTML === chosenCards[1].innerHTML) {
 				match();
 		} else { // No match case
-				setTimeout(noMatch, 800);
+				setTimeout(function() {
+						for(card of chosenCards){
+								card.classList.add('wrong');
+						}
+						setTimeout(noMatch, 1000);
+				}, 300);
+
 		}
 }
 
@@ -150,10 +156,16 @@ function checkMatch() {
 function match() {
 		for(card of chosenCards) {
 				card.classList.add('match');
+				gotRight(card);
 		};
 		pairsRemain--;
 		checkWin();
 		empty();
+}
+
+// Match pair animation
+function gotRight(card) {
+		card.classList.add('right');
 }
 
 // Cards don't match: Flips cards down
@@ -167,6 +179,9 @@ function noMatch() {
 // Empty the array after checks
 function empty() {
 		chosenCards = [];
+		for(card of cards) {
+			card.classList.remove('wrong');
+		}
 }
 
 // Checks for Win condition
@@ -197,7 +212,11 @@ function checkRating() {
 		}
 }
 
-// Timer
+/**************************
+ *     		 Timer  	 	    *
+***************************/
+
+// Turn timer on
 function timerOn() {
 		if (timer === false) {
 				count = setInterval(countTime, 1000);
@@ -205,18 +224,21 @@ function timerOn() {
 		}
 }
 
+// Turn timer off
 function timerOff() {
 		clearInterval(count);
 		count = 0;
 		timer = false;
 }
 
+// Main timer function
 function countTime() {
 		++totalTime;
 		secs.innerHTML = pad(totalTime%60);
 		mins.innerHTML = pad(parseInt(totalTime/60));
 }
 
+// Formatting function for '00'
 function pad(val) {
 		let valString = val + '';
 		if (valString.length < 2) {
@@ -226,7 +248,9 @@ function pad(val) {
 		}
 }
 
-// Restart game
+/**************************
+ *      Restart Game      *
+***************************/
 restart.addEventListener('click', restartGame);
 
 function restartGame() {
@@ -249,6 +273,10 @@ function restartGame() {
 		}
 }
 
+/**************************
+ *          Modal         *
+***************************/
+
 // Update and open modal
 function openModal () {
 		modalMoves.innerHTML = moves;
@@ -256,7 +284,6 @@ function openModal () {
 		modalMins.innerHTML = pad(parseInt(totalTime/60));
 		modal.style.display = 'block';
 }
-
 
 // Close modal Button and restart game
 modalClose.onclick = function() {
@@ -283,7 +310,10 @@ window.onclick = function(event) {
 		}
 }
 
-// Keyboard shortcuts
+/**************************
+ *   Keyboard Shortcuts   *
+***************************/
+
 document.onkeyup = function(e) {
 		if (e.which == 49) {        // 1
 				flipCardKeyboard(0);
@@ -320,6 +350,7 @@ document.onkeyup = function(e) {
 		}
 }
 
+// Flips the card with the keyboard
 function flipCardKeyboard(card) {
 		if (!cards[card].classList.contains('open', 'show', 'match') && chosenCards.length !== 2) {
 				cards[card].classList.add('open');
