@@ -167,7 +167,7 @@ a {
 }
 
 /* Hover animation only on desktops, doesn't work well with touchscreen */
-@media screen and min-width(720px) {
+@media screen and (min-width: 720px) {
 		.deck .card:hover {
 				background-color: #292b2c;
 		}
