@@ -5,22 +5,22 @@
 
 // Cards
 const cardList = [
-		"fa-github",
-		"fa-github",
-		"fa-youtube",
-		"fa-youtube",
-		"fa-codepen",
-		"fa-codepen",
-		"fa-html5",
-		"fa-html5",
-		"fa-css3",
-		"fa-css3",
-		"fa-code",
-		"fa-code",
-		"fa-book",
-		"fa-book",
-		"fa-podcast",
-		"fa-podcast"
+		'fa-github',
+		'fa-github',
+		'fa-youtube',
+		'fa-youtube',
+		'fa-codepen',
+		'fa-codepen',
+		'fa-html5',
+		'fa-html5',
+		'fa-css3',
+		'fa-css3',
+		'fa-code',
+		'fa-code',
+		'fa-book',
+		'fa-book',
+		'fa-podcast',
+		'fa-podcast'
 	];
 let slots = document.querySelectorAll('.card-icon');
 let deck = document.querySelector('.deck');
@@ -93,7 +93,7 @@ function dealCards() {
 		for (var i = 0; i < cardList.length; i++) {
 				// Remove old cards when restarting
 				slots[i].className = '';
-				cards[i].classList.remove("open", "show", "match");
+				cards[i].classList.remove('open', 'show', 'match');
 				// Add cards to the table
 				slots[i].classList.add('fa', cardList[i]);
 		}
@@ -112,7 +112,7 @@ deck.addEventListener('click', flipCard);
 function flipCard(e) {
 		let chosen = e.target;
 		// Checks if clicked element is a card, is not open, and if there are already 2 open cards
-		if (chosen.nodeName === "LI" && !chosen.classList.contains("open", "show", "match") && chosenCards.length !== 2) {
+		if (chosen.nodeName === 'LI' && !chosen.classList.contains('open', 'show', 'match') && chosenCards.length !== 2) {
 				chosen.classList.add('open');
 				addChosenCard(chosen);
 				if (timer === false && pairsRemain > 0) {
@@ -149,7 +149,7 @@ function checkMatch() {
 // Cards Match: Lock cards open and call end game condition function
 function match() {
 		for(card of chosenCards) {
-				card.classList.add("match");
+				card.classList.add('match');
 		};
 		pairsRemain--;
 		checkWin();
@@ -159,7 +159,7 @@ function match() {
 // Cards don't match: Flips cards down
 function noMatch() {
 		for (card of chosenCards) {
-				card.classList.remove("open", "show");
+				card.classList.remove('open', 'show');
 		};
 		empty();
 }
@@ -218,9 +218,9 @@ function countTime() {
 }
 
 function pad(val) {
-		let valString = val + "";
+		let valString = val + '';
 		if (valString.length < 2) {
-				return "0" + valString;
+				return '0' + valString;
 		} else {
 				return valString;
 		}
@@ -242,8 +242,8 @@ function restartGame() {
 		starsModal[5].classList.remove('lost');
 		dealCards();
 		// Restart timer
-		secs.innerHTML = "00";
-		mins.innerHTML = "00";
+		secs.innerHTML = '00';
+		mins.innerHTML = '00';
 		if (timer === true) {
 				timerOff();
 		}
@@ -254,32 +254,32 @@ function openModal () {
 		modalMoves.innerHTML = moves;
 		modalSecs.innerHTML = pad(totalTime%60);
 		modalMins.innerHTML = pad(parseInt(totalTime/60));
-		modal.style.display = "block";
+		modal.style.display = 'block';
 }
 
 
 // Close modal Button and restart game
 modalClose.onclick = function() {
 		restartGame();
-		modal.style.display = "none";
+		modal.style.display = 'none';
 }
 
 // Open Keys Modals
 modalKeysOpen.onclick = function() {
-		modalKeys.style.display = "block";
+		modalKeys.style.display = 'block';
 }
 
 // Close Keys modal
 modalKeysClose.onclick = function() {
-		modalKeys.style.display = "none";
+		modalKeys.style.display = 'none';
 }
 
 // Close modal if anywhere outside of it is clicked
 window.onclick = function(event) {
 		if (event.target == modal) {
-			modal.style.display = "none";
+			modal.style.display = 'none';
 		} else if (event.target == modalKeys) {
-			modalKeys.style.display = "none";
+			modalKeys.style.display = 'none';
 		}
 }
 
@@ -321,7 +321,7 @@ document.onkeyup = function(e) {
 }
 
 function flipCardKeyboard(card) {
-		if (!cards[card].classList.contains("open", "show", "match") && chosenCards.length !== 2) {
+		if (!cards[card].classList.contains('open', 'show', 'match') && chosenCards.length !== 2) {
 				cards[card].classList.add('open');
 				addChosenCard(cards[card]);
 				if (timer === false && pairsRemain > 0) {
